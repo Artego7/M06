@@ -1,12 +1,14 @@
 ﻿  main.cpp
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(83): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(84): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(89): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(87): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(89): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(139): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(137): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(139): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(290): warning C4018: '<': signed/unsigned mismatch
-d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(303): warning C4018: '<': signed/unsigned mismatch
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(86): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(87): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(92): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(90): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(92): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(139): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(140): warning C4244: '+=': conversion from 'float' to 'int', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(145): warning C4838: conversion from 'int' to 'float' requires a narrowing conversion
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(143): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(145): warning C4244: 'initializing': conversion from 'int' to 'float', possible loss of data
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(296): warning C4018: '<': signed/unsigned mismatch
+d:\abel_zambrano_dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(309): warning C4018: '<': signed/unsigned mismatch
   M06_UF1.vcxproj -> D:\Abel_Zambrano_DAM_VIOD\Acceso_a_Datos\M06\M06_UF1\Debug\M06_UF1.exe

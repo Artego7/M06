@@ -73,6 +73,9 @@ int printTextures(Vector3 BlockBoxSize) {
 	for (int layer = 0; layer < 3; layer++) {
 		int offset_x = -level[currentLevel].width;
 		int offset_z = -level[currentLevel].height;
+		float update_size_x = BlockBoxSize.x;
+		float update_size_y = BlockBoxSize.y;
+		float update_size_z = BlockBoxSize.z;
 		for (int i = 0; i < level[currentLevel].height; i++) {
 			for (int j = 0; j < level[currentLevel].width; j++) {
 				int x_increment = j;
@@ -80,8 +83,8 @@ int printTextures(Vector3 BlockBoxSize) {
 				int z_increment = i;
 				if (x_increment != 0 || z_increment != 0)
 				{
-					x_increment += (x_increment * (BlockBoxSize.x / 2.f));
-					z_increment += (z_increment * (BlockBoxSize.z / 2.f));
+					x_increment += (x_increment * (BlockBoxSize.x / update_size_x));
+					z_increment += (z_increment * (BlockBoxSize.z / update_size_z));
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
@@ -123,6 +126,9 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 
 		int offset_x = -level[currentLevel].width;
 		int offset_z = -level[currentLevel].height;
+		float update_size_x = BlockBoxSize.x;
+		float update_size_y = BlockBoxSize.y;
+		float update_size_z = BlockBoxSize.z;
 		for (int i = 0; i < level[currentLevel].height; i++) {
 			for (int j = 0; j < level[currentLevel].width; j++) {
 				int x_increment = j;
@@ -130,8 +136,8 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 				if (x_increment != 0 || z_increment != 0)
 				{
 
-					x_increment += x_increment;
-					z_increment += z_increment;
+					x_increment += (x_increment * (BlockBoxSize.x / update_size_x));
+					z_increment += (z_increment * (BlockBoxSize.z / update_size_z));
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
@@ -207,7 +213,7 @@ int doRayMagic() {
 	Color playerColor = PINK;
 
 	Vector3 BlockBoxPos = { 1.0f, 1.0f, 1.0f };
-	Vector3 BlockBoxSize = { 2.0f, 2.0f, 2.0f };
+	Vector3 BlockBoxSize = { 1.0f, 1.0f, 1.0f };
 	
 	
 
