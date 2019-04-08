@@ -117,6 +117,7 @@ int printTextures(Vector3 BlockBoxSize) {
 
 	return 0;
 }
+
 int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& playerPosition_prev, Vector3& BlockBoxSize, Color& playerColor, bool collision) {
 	//Check collisions player vs enemy-box
 
@@ -183,20 +184,42 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 	return 0;
 }
 
-int bombGenerator(Vector3 playerPosition) {
+int setbombs() {
 	bombs = new bomb[max_bombs];
+	return 0;
+}
+
+int bombGenerator(Vector3 playerPosition) {
+	bombs[current_bomb].BombPos = playerPosition;
 	for (int i = 0; i < max_bombs; i++)
 	{
 		bombs[i].BombPos = { 1.0f, 1.0f, 1.0f };
 		bombs[i].BombSize = 1.5f;
 		bombs[i].BombColor = BLACK;   
 	}
-	if (IsKeyPressed(KEY_SPACE) && current_bomb <= max_bombs)
+	if (IsKeyPressed(KEY_SPACE) && current_bomb < max_bombs)
 	{
+		//DrawSphereEx(bombs[current_bomb].BombPos, bombs[current_bomb].BombSize, 25, 25, bombs[current_bomb].BombColor);
+		bombs[current_bomb].active = true;
 		current_bomb++;
-		bombs[current_bomb].BombPos = playerPosition;
-		DrawSphereEx(bombs[current_bomb].BombPos, bombs[current_bomb].BombSize, 25, 25, bombs[current_bomb].BombColor);
 	}
+	return 0;
+}
+
+int printBomb() {
+	for (int i = 0; i < max_bombs; i++) {
+		//std::cout << bombs[i].active;
+		if (bombs[i].active) {
+			DrawSphereEx(bombs[i].BombPos, bombs[i].BombSize, 6, 6, bombs[i].BombColor);
+			bombs[i].time_current += 0.02f;
+			//std::cout << bombs[i].time_current;
+			if (bombs[i].time_current >= bombs[i].time_limit)
+			{
+				bombs[i].active = false;
+			}
+		}
+	}
+
 	return 0;
 }
 
@@ -213,7 +236,7 @@ int doRayMagic() {
 	Color playerColor = PINK;
 
 	Vector3 BlockBoxPos = { 1.0f, 1.0f, 1.0f };
-	Vector3 BlockBoxSize = { 1.0f, 1.0f, 1.0f };
+	Vector3 BlockBoxSize = { 2.0f, 2.0f, 2.0f };
 	
 	
 
@@ -228,7 +251,7 @@ int doRayMagic() {
 	SetTargetFPS(60);
 
 	setTextres(textura.textures_num);
-
+	setbombs();
 	//==========================================================================//
 	while (!WindowShouldClose())
 	{
@@ -249,7 +272,7 @@ int doRayMagic() {
 
 		printTextures(BlockBoxSize);
 		bombGenerator(playerPosition);
-
+		printBomb();
 
 		
 
