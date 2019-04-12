@@ -12,7 +12,6 @@ bomb* bombs;
 
 int level_num = 0;
 int max_bombs = 10;
-int current_bomb = 0;
 
 //////////////COMPROVACIONES///////////////////
 //std::cout << level_num << std::endl;
@@ -51,7 +50,7 @@ int current_bomb = 0;
 //	std::cout << std::endl;
 //}
 
-
+//=============TEXTURAS=============//
 int setTextres(int num) {
 	textura.img_textures = new Image[num + 1];
 	textura.texures = new Texture2D[num + 1];
@@ -64,9 +63,10 @@ int setTextres(int num) {
 	}
 
 	return 0;
+//=============TEXTURAS=============//
 }
 
-int printTextures(Vector3 BlockBoxSize) {
+int printTextures(Vector3& BlockBoxSize, Vector3& playerSize) {
 	int currentLevel = 0;
 	float alturaBloque = 0;
 
@@ -79,36 +79,33 @@ int printTextures(Vector3 BlockBoxSize) {
 		for (int i = 0; i < level[currentLevel].height; i++) {
 			for (int j = 0; j < level[currentLevel].width; j++) {
 				int x_increment = j;
-				int y_increment = 0;
 				int z_increment = i;
 				if (x_increment != 0 || z_increment != 0)
 				{
-					x_increment += (x_increment * (BlockBoxSize.x / update_size_x));
-					z_increment += (z_increment * (BlockBoxSize.z / update_size_z));
+					x_increment += x_increment * (BlockBoxSize.x / update_size_x);
+					z_increment += z_increment * (BlockBoxSize.z / update_size_z);
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
 					0.0f,
-					offset_z + z_increment };
+					offset_z + z_increment
+				};
 				int textureLayer = 0;
 
-				if (layer == 0)
-				{
+				if (layer == 0) {
 					textureLayer = level[currentLevel].background[i][j];
 				}
-				else if (layer == 1)
-				{
+				else if (layer == 1) {
 					textureLayer = level[currentLevel].foreground[i][j];
-					BlockBoxPos.y = 2.0f;
+					BlockBoxPos.y += BlockBoxSize.y;
 					alturaBloque = 2.0f;
 				}
-				else if (layer == 2)
-				{
+				else if (layer == 2) {
 					//collision
 				}
-				if (textureLayer != 0) 
-				{
+				if (textureLayer != 0) {
 					DrawCubeTexture(textura.texures[textureLayer], BlockBoxPos, BlockBoxSize.x, BlockBoxSize.y, BlockBoxSize.z, WHITE);
+					DrawCubeWires(BlockBoxPos, BlockBoxSize.x, BlockBoxSize.y, BlockBoxSize.z, BLACK);
 					//DrawCubeWires(BlockBoxPos, BlockBoxSize.x, BlockBoxSize.y, BlockBoxSize.z, DARKGRAY);
 				}
 			}
@@ -118,6 +115,7 @@ int printTextures(Vector3 BlockBoxSize) {
 	return 0;
 }
 
+//=============PLAYER=============//
 int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& playerPosition_prev, Vector3& BlockBoxSize, Color& playerColor, bool collision) {
 	//Check collisions player vs enemy-box
 
@@ -136,9 +134,8 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 				int z_increment = i;
 				if (x_increment != 0 || z_increment != 0)
 				{
-
-					x_increment += (x_increment * (BlockBoxSize.x / update_size_x));
-					z_increment += (z_increment * (BlockBoxSize.z / update_size_z));
+					x_increment += x_increment * (BlockBoxSize.x / update_size_x);
+					z_increment += z_increment * (BlockBoxSize.z / update_size_z);
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
@@ -184,74 +181,127 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 	return 0;
 }
 
-int setbombs() {
-	bombs = new bomb[max_bombs];
+//=============BLOCKS=============//
+int destroyBlocks() {
 	return 0;
 }
 
-int bombGenerator(Vector3 playerPosition) {
-	bombs[current_bomb].BombPos = playerPosition;
-	for (int i = 0; i < max_bombs; i++)
-	{
-		bombs[i].BombPos = { 1.0f, 1.0f, 1.0f };
-		bombs[i].BombSize = 1.5f;
-		bombs[i].BombColor = BLACK;   
-	}
-	if (IsKeyPressed(KEY_SPACE) && current_bomb < max_bombs)
-	{
-		//DrawSphereEx(bombs[current_bomb].BombPos, bombs[current_bomb].BombSize, 25, 25, bombs[current_bomb].BombColor);
-		bombs[current_bomb].active = true;
-		current_bomb++;
-	}
+//=============BOMBS=============//
+int setbombs(bomb& bombs) {
+		bombs.BombPos = { 1.0f, 1.0f, 1.0f };
+		bombs.BombSize = 0.5f;
+		
+		bombs.time_current = 0.0f;
+		bombs.time_limit = 8.0f;
+		
+		bombs.BombColor = BLACK;
+		bombs.BombColor_hot = ORANGE;
+		bombs.BombColor_explosion= RED;
+
+		bombs.active = false;
+		bombs.max_expansion = false;
 	return 0;
 }
 
-int printBomb() {
+void checkBombActive(Vector3 playerPosition) {
+		
+	for (int i = 0; i < max_bombs; i++) {
+		if (!bombs[i].active) {
+			bombs[i].active = true;
+			bombs[i].BombPos = playerPosition;
+			return;
+		}
+	}
+}
+
+int colorBomb(bomb& bombs, Color color) {
+	bombs.BombColor.r = color.r - (bombs.time_current / bombs.time_limit);
+	bombs.BombColor.g = color.g - (bombs.time_current / bombs.time_limit);
+	bombs.BombColor.b = color.b - (bombs.time_current / bombs.time_limit);
+	return 0;
+}
+
+int generateBomb() {
+	float current_time = GetFrameTime();
 	for (int i = 0; i < max_bombs; i++) {
 		//std::cout << bombs[i].active;
 		if (bombs[i].active) {
-			DrawSphereEx(bombs[i].BombPos, bombs[i].BombSize, 6, 6, bombs[i].BombColor);
-			bombs[i].time_current += 0.02f;
-			//std::cout << bombs[i].time_current;
-			if (bombs[i].time_current >= bombs[i].time_limit)
+			//if (bombs[i].BombPos.x >= %2)
 			{
-				bombs[i].active = false;
+
+			}
+			DrawSphereEx(bombs[i].BombPos, bombs[i].BombSize, bombs[i].rings, bombs[i].slices, bombs[i].BombColor);
+			bombs[i].time_current += current_time;
+			std::cout << bombs[i].BombPos.x << std::endl;
+
+			if (bombs[i].BombSize >= 0.5f && bombs[i].max_expansion) {
+				if (bombs[i].time_current >= 3.0f) {
+					bombs[i].BombSize -= current_time * 4;
+				}
+				if (bombs[i].time_current >= 6.0f) {
+					bombs[i].BombSize -= current_time * 8;
+				}
+				colorBomb(bombs[i], bombs[i].BombColor_hot);
+				if (bombs[i].BombSize <= 0.5f) {
+
+					bombs[i].max_expansion = false;
+				}
+			}
+			if (bombs[i].time_current >= 6.0f) {
+				colorBomb(bombs[i], bombs[i].BombColor_explosion);
+				bombs[i].BombSize += current_time * 8;
+				if (bombs[i].BombSize >= 1.5f) {
+
+					bombs[i].max_expansion = true;
+				}
+			}else if (bombs[i].time_current >= 3.0f && !bombs[i].max_expansion) {
+				colorBomb(bombs[i], bombs[i].BombColor_hot);
+				bombs[i].BombSize += current_time * 4;
+				std::cout << bombs[i].BombSize << std::endl;
+				if (bombs[i].BombSize >= 1.5f) {
+
+					bombs[i].max_expansion = true;
+				}
+			}
+			if (bombs[i].time_current >= bombs[i].time_limit) {
+				setbombs(bombs[i]);
+				destroyBlocks();
 			}
 		}
 	}
-
 	return 0;
 }
 
-// Integrar collisiones que mire todas las casillas
-// mirar en el csv y si hay y que no pase
-
+//=============RAYLIB_INIT=============//
 int doRayMagic() {
+	//Declara la posicion de la camara, angulo y profundidad
 	Camera camera = { { 0.0f, 40.0f, 25.0f },
 					  { 0.0f, 0.0f, 0.0f },
 					  { 0.0f, 4.0f, 0.0f }, 45.0f, 0 };
-	Vector3 playerPosition = { 0.0f, 2.0f, 2.0f };
+	Vector3 playerPosition = { 0.0f, 2.0f, 0.0f };
 	Vector3 playerPosition_prev = playerPosition;
 	Vector3 playerSize = { 1.0f, 2.0f, 1.0f };
 	Color playerColor = PINK;
 
-	Vector3 BlockBoxPos = { 1.0f, 1.0f, 1.0f };
 	Vector3 BlockBoxSize = { 2.0f, 2.0f, 2.0f };
-	
-	
 
+	playerPosition.y = BlockBoxSize.y;
 	bool collision = false;
 
 	int screenWidth = 1760;
 	int screenHeight = 990;
-
 
 	//==========================================================================//
 	InitWindow(screenWidth, screenHeight, "");
 	SetTargetFPS(60);
 
 	setTextres(textura.textures_num);
-	setbombs();
+
+	bombs = new bomb[max_bombs];
+	for (int i = 0; i < max_bombs; i++) {
+		setbombs(bombs[i]);
+	}
+
 	//==========================================================================//
 	while (!WindowShouldClose())
 	{
@@ -264,16 +314,19 @@ int doRayMagic() {
 		else if (IsKeyDown(KEY_DOWN)) playerPosition.z += 0.2f;
 		else if (IsKeyDown(KEY_UP)) playerPosition.z -= 0.2f;
 
+
 		chekCollisionPlayer(playerPosition, playerSize, playerPosition_prev, BlockBoxSize, playerColor, collision);
 
 		BeginDrawing();
 		ClearBackground(RAYWHITE);
 		BeginMode3D(camera);
 
-		printTextures(BlockBoxSize);
-		bombGenerator(playerPosition);
-		printBomb();
-
+		printTextures(BlockBoxSize, playerSize);
+		if (IsKeyPressed(KEY_SPACE))
+		{
+			checkBombActive(playerPosition);
+		}
+		generateBomb();
 		
 
 		// Draw player
@@ -299,6 +352,7 @@ int doRayMagic() {
 
 }
 
+//=============MAIN=============//
 int main(int argc, char* argv[]) {
 	std::ifstream game_conf("../M06_UF1/Game.csv");
 	if (!game_conf.is_open()) {
