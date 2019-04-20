@@ -1,0 +1,3 @@
+﻿  main.cpp
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\creador_csv\creador_csv\main.cpp(131): warning C4244: 'argumento': conversión de 'time_t' a 'unsigned int'; posible pérdida de datos
+  Creador_csv.vcxproj -> C:\Users\User\Desktop\Abel\Trabajos\DAM_VIOD\Acceso_a_Datos\M06\Creador_csv\Debug\Creador_csv.exe

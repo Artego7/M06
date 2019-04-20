@@ -10,6 +10,8 @@ texturas textura;
 levels* level;
 bomb* bombs;
 
+int currentLevel = 0;
+
 int level_num = 0;
 int max_bombs = 10;
 
@@ -63,27 +65,22 @@ int setTextres(int num) {
 	}
 
 	return 0;
-//=============TEXTURAS=============//
 }
 
 int printTextures(Vector3& BlockBoxSize, Vector3& playerSize) {
-	int currentLevel = 0;
-	float alturaBloque = 0;
 
 	for (int layer = 0; layer < 3; layer++) {
-		int offset_x = -level[currentLevel].width;
-		int offset_z = -level[currentLevel].height;
-		float update_size_x = BlockBoxSize.x;
-		float update_size_y = BlockBoxSize.y;
-		float update_size_z = BlockBoxSize.z;
+		int offset_x = (-level[currentLevel].width / 2);
+		int offset_z = (-level[currentLevel].height / 2);
+
 		for (int i = 0; i < level[currentLevel].height; i++) {
 			for (int j = 0; j < level[currentLevel].width; j++) {
 				int x_increment = j;
 				int z_increment = i;
-				if (x_increment != 0 || z_increment != 0)
+				if (BlockBoxSize.x == 2.0f && (x_increment != 0 || z_increment != 0))
 				{
-					x_increment += x_increment * (BlockBoxSize.x / update_size_x);
-					z_increment += z_increment * (BlockBoxSize.z / update_size_z);
+					x_increment += x_increment * (BlockBoxSize.x / BlockBoxSize.x);
+					z_increment += z_increment * (BlockBoxSize.z / BlockBoxSize.z);
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
@@ -98,7 +95,6 @@ int printTextures(Vector3& BlockBoxSize, Vector3& playerSize) {
 				else if (layer == 1) {
 					textureLayer = level[currentLevel].foreground[i][j];
 					BlockBoxPos.y += BlockBoxSize.y;
-					alturaBloque = 2.0f;
 				}
 				else if (layer == 2) {
 					//collision
@@ -120,22 +116,18 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 	//Check collisions player vs enemy-box
 
 	int currentLevel = 0;
-	float alturaBloque = 0;
 
+	int offset_x = (-level[currentLevel].width / 2);
+	int offset_z = (-level[currentLevel].height / 2);
 
-		int offset_x = -level[currentLevel].width;
-		int offset_z = -level[currentLevel].height;
-		float update_size_x = BlockBoxSize.x;
-		float update_size_y = BlockBoxSize.y;
-		float update_size_z = BlockBoxSize.z;
 		for (int i = 0; i < level[currentLevel].height; i++) {
 			for (int j = 0; j < level[currentLevel].width; j++) {
 				int x_increment = j;
 				int z_increment = i;
-				if (x_increment != 0 || z_increment != 0)
+				if (BlockBoxSize.x == 2.0f && (x_increment != 0 || z_increment != 0))
 				{
-					x_increment += x_increment * (BlockBoxSize.x / update_size_x);
-					z_increment += z_increment * (BlockBoxSize.z / update_size_z);
+					x_increment += x_increment * (BlockBoxSize.x / BlockBoxSize.x);
+					z_increment += z_increment * (BlockBoxSize.z / BlockBoxSize.z);
 				}
 				Vector3 BlockBoxPos = {
 					offset_x + x_increment,
@@ -182,14 +174,11 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 }
 
 //=============BLOCKS=============//
-int destroyBlocks() {
-	return 0;
-}
 
 //=============BOMBS=============//
 int setbombs(bomb& bombs) {
 		bombs.BombPos = { 1.0f, 1.0f, 1.0f };
-		bombs.BombSize = 0.5f;
+		bombs.BombSize = 0.2f;
 		
 		bombs.time_current = 0.0f;
 		bombs.time_limit = 8.0f;
@@ -223,49 +212,166 @@ int colorBomb(bomb& bombs, Color color) {
 
 int generateBomb() {
 	float current_time = GetFrameTime();
+	
 	for (int i = 0; i < max_bombs; i++) {
-		//std::cout << bombs[i].active;
 		if (bombs[i].active) {
-			//if (bombs[i].BombPos.x >= %2)
+			//std::cout << bombs[i].BombPos.x << std::endl;
+			//std::cout << bombs[i].BombPos.z << std::endl;
+
+			int tempPosBombx = bombs[i].BombPos.x;
+			if (bombs[i].BombPos.x > 0.0f)
+			{
+				if (bombs[i].BombPos.x >= ((float)tempPosBombx + 0.5)) {
+					if (tempPosBombx % 2 == 0) {
+						bombs[i].BombPos.x = ((float)tempPosBombx + 1.0f);
+						//std::cout << "Mayor Positivo Par: " << bombs[i].BombPos.x << std::endl;
+					}
+					if (tempPosBombx % 2 != 0) {
+						bombs[i].BombPos.x = ((float)tempPosBombx + 1.0f);
+						//std::cout << "Mayor Positivo Impar: " << bombs[i].BombPos.x << std::endl;
+					}
+				}
+				else if (bombs[i].BombPos.x < ((float)tempPosBombx + 0.5)) {
+					if (tempPosBombx % 2 == 0) {
+						bombs[i].BombPos.x = (float)tempPosBombx;
+						//std::cout << "Menor Positivo Par: " << bombs[i].BombPos.x << std::endl;
+					}
+					if (tempPosBombx % 2 != 0) {
+						bombs[i].BombPos.x = (float)tempPosBombx;
+						//std::cout << "Menor Positivo Impar: " << bombs[i].BombPos.x << std::endl;
+					}
+				}
+			}
+			if (bombs[i].BombPos.x < 0.0f)
 			{
 
+				if (bombs[i].BombPos.x <= ((float)tempPosBombx - 0.5)) {
+					if (tempPosBombx % 2 == 0) {
+						bombs[i].BombPos.x = ((float)tempPosBombx - 1.0f);
+						//std::cout << "Menor Negativo Par: " << bombs[i].BombPos.x << tempPosBombx << std::endl;
+					}
+					if (tempPosBombx % 2 != 0) {
+						bombs[i].BombPos.x = ((float)tempPosBombx - 1.0f);
+						//std::cout << "Menor Negativo Impar: " << bombs[i].BombPos.x << std::endl;
+					}
+				}
+				else if (bombs[i].BombPos.x > ((float)tempPosBombx - 0.5)) {
+					if (tempPosBombx % 2 == 0) {
+						bombs[i].BombPos.x = (float)tempPosBombx;
+						//std::cout << "Mayor Negativo Par: " << bombs[i].BombPos.x << std::endl;
+					}
+					if (tempPosBombx % 2 != 0) {
+						bombs[i].BombPos.x = (float)tempPosBombx;
+						//std::cout << "Mayor Negativo Impar: " << bombs[i].BombPos.x << std::endl;
+					}
+				}
 			}
+
+			int tempPosBombz = bombs[i].BombPos.z;
+			if (bombs[i].BombPos.z > 0.0f)
+			{
+				if (bombs[i].BombPos.z >= ((float)tempPosBombz + 0.5)) {
+					if (tempPosBombz % 2 == 0) {
+						bombs[i].BombPos.z = ((float)tempPosBombz + 1.0f);
+						std::cout << "Mayor Positivo Par: " << bombs[i].BombPos.z << std::endl;
+					}
+					if (tempPosBombz % 2 != 0) {
+						bombs[i].BombPos.z = ((float)tempPosBombz + 1.0f);
+						std::cout << "Mayor Positivo Impar: " << bombs[i].BombPos.z << std::endl;
+					}
+				}
+				else if (bombs[i].BombPos.z < ((float)tempPosBombz + 0.5)) {
+					if (tempPosBombz % 2 == 0) {
+						bombs[i].BombPos.z = (float)tempPosBombz;
+						std::cout << "Menor Positivo Par: " << bombs[i].BombPos.z << std::endl;
+					}
+					if (tempPosBombz % 2 != 0) {
+						bombs[i].BombPos.z = (float)tempPosBombz;
+						std::cout << "Menor Positivo Impar: " << bombs[i].BombPos.z << std::endl;
+					}
+				}
+			}
+			if (bombs[i].BombPos.z < 0.0f)
+			{
+
+				if (bombs[i].BombPos.z <= ((float)tempPosBombz - 0.5)) {
+					if (tempPosBombz % 2 == 0) {
+						bombs[i].BombPos.z = ((float)tempPosBombz - 1.0f);
+						std::cout << "Menor Negativo Par: " << bombs[i].BombPos.z << std::endl;
+					}
+					if (tempPosBombz % 2 != 0) {
+						bombs[i].BombPos.z = ((float)tempPosBombz - 1.0f);
+						std::cout << "Menor Negativo Impar: " << bombs[i].BombPos.z << std::endl;
+					}
+				}
+				else if (bombs[i].BombPos.z > ((float)tempPosBombz - 0.5)) {
+					if (tempPosBombz % 2 == 0) {
+						bombs[i].BombPos.z = (float)tempPosBombz;
+						std::cout << "Mayor Negativo Par: " << bombs[i].BombPos.z << std::endl;
+					}
+					if (tempPosBombz % 2 != 0) {
+						bombs[i].BombPos.z = (float)tempPosBombz;
+						std::cout << "Mayor Negativo Impar: " << bombs[i].BombPos.z << std::endl;
+					}
+				}
+			}
+
+			//bombs[i].BombPos.x = tempPosBombx;
+			//bombs[i].BombPos.z = tempPosBombz;
+
 			DrawSphereEx(bombs[i].BombPos, bombs[i].BombSize, bombs[i].rings, bombs[i].slices, bombs[i].BombColor);
 			bombs[i].time_current += current_time;
-			std::cout << bombs[i].BombPos.x << std::endl;
+			//std::cout << bombs[i].BombPos.x << std::endl;
 
-			if (bombs[i].BombSize >= 0.5f && bombs[i].max_expansion) {
+			if (bombs[i].BombSize >= 0.2f && bombs[i].max_expansion) {
 				if (bombs[i].time_current >= 3.0f) {
-					bombs[i].BombSize -= current_time * 4;
+					bombs[i].BombSize -= current_time * 2;
 				}
 				if (bombs[i].time_current >= 6.0f) {
-					bombs[i].BombSize -= current_time * 8;
+					bombs[i].BombSize -= current_time * 4;
 				}
 				colorBomb(bombs[i], bombs[i].BombColor_hot);
-				if (bombs[i].BombSize <= 0.5f) {
+				if (bombs[i].BombSize <= 0.2f) {
 
 					bombs[i].max_expansion = false;
 				}
 			}
 			if (bombs[i].time_current >= 6.0f) {
 				colorBomb(bombs[i], bombs[i].BombColor_explosion);
-				bombs[i].BombSize += current_time * 8;
-				if (bombs[i].BombSize >= 1.5f) {
+				bombs[i].BombSize += current_time * 4;
+				if (bombs[i].BombSize >= 0.6f) {
 
 					bombs[i].max_expansion = true;
 				}
 			}else if (bombs[i].time_current >= 3.0f && !bombs[i].max_expansion) {
 				colorBomb(bombs[i], bombs[i].BombColor_hot);
-				bombs[i].BombSize += current_time * 4;
-				std::cout << bombs[i].BombSize << std::endl;
-				if (bombs[i].BombSize >= 1.5f) {
+				bombs[i].BombSize += current_time * 2;
+				//std::cout << bombs[i].BombSize << std::endl;
+				if (bombs[i].BombSize >= 0.6f) {
 
 					bombs[i].max_expansion = true;
 				}
 			}
 			if (bombs[i].time_current >= bombs[i].time_limit) {
+				int w = tempPosBombx;
+				int h = tempPosBombz;
+				std::string collisionConfirm1 = level[currentLevel].collision[h][w - 1];
+				std::string collisionConfirm2 = level[currentLevel].collision[h - 1][w];
+				std::string collisionConfirm3 = level[currentLevel].collision[h][w + 1];
+				std::string collisionConfirm4 = level[currentLevel].collision[h + 1][w];
+				if (collisionConfirm1 == "w") {
+					level[currentLevel].collision[h][w - 1] = "n";
+				}
+				else if (collisionConfirm2 == "w") {
+					level[currentLevel].collision[h - 1][w] = "n";
+				}
+				else if (collisionConfirm3 == "w") {
+					level[currentLevel].collision[h][w + 1] = "n";
+				}
+				else if (collisionConfirm4 == "w") {
+					level[currentLevel].collision[h + 1][w] = "n";
+				}
 				setbombs(bombs[i]);
-				destroyBlocks();
 			}
 		}
 	}
@@ -275,16 +381,34 @@ int generateBomb() {
 //=============RAYLIB_INIT=============//
 int doRayMagic() {
 	//Declara la posicion de la camara, angulo y profundidad
-	Camera camera = { { 0.0f, 40.0f, 25.0f },
+	Camera camera = { { 0.0f, 20.0f, 25.0f },
 					  { 0.0f, 0.0f, 0.0f },
-					  { 0.0f, 4.0f, 0.0f }, 45.0f, 0 };
+					  { 0.0f, 4.0f, 0.0f }, 35.0f, 0 };
 	Vector3 playerPosition = { 0.0f, 2.0f, 0.0f };
 	Vector3 playerPosition_prev = playerPosition;
-	Vector3 playerSize = { 1.0f, 2.0f, 1.0f };
+	Vector3 playerSize = { 0.5f, 1.0f, 0.5f };
 	Color playerColor = PINK;
 
-	Vector3 BlockBoxSize = { 2.0f, 2.0f, 2.0f };
+	Vector3 BlockBoxSize = { 1.0f, 1.0f, 1.0f };
 
+	for (int i = 0; i < level[currentLevel].height; i++) {
+		for (int j = 0; j < level[currentLevel].width; j++) {
+			if (level[currentLevel].collision[i][j] == "p1") {
+				int offset_x = (-level[currentLevel].width / 2);
+				int offset_z = (-level[currentLevel].height / 2);
+				int x_increment = j;
+				int z_increment = i;
+				if (x_increment != 0 || z_increment != 0)
+				{
+					x_increment += x_increment * (BlockBoxSize.x / BlockBoxSize.x);
+					z_increment += z_increment * (BlockBoxSize.z / BlockBoxSize.z);
+				}
+				playerPosition.x = offset_x + x_increment;
+				playerPosition.z = offset_z + z_increment;
+
+			}
+		}
+	}
 	playerPosition.y = BlockBoxSize.y;
 	bool collision = false;
 
@@ -309,10 +433,10 @@ int doRayMagic() {
 
 		playerPosition_prev = playerPosition;
 
-		if (IsKeyDown(KEY_RIGHT)) playerPosition.x += 0.2f;
-		else if (IsKeyDown(KEY_LEFT)) playerPosition.x -= 0.2f;
-		else if (IsKeyDown(KEY_DOWN)) playerPosition.z += 0.2f;
-		else if (IsKeyDown(KEY_UP)) playerPosition.z -= 0.2f;
+		if (IsKeyDown(KEY_RIGHT)) playerPosition.x += 0.1f;
+		else if (IsKeyDown(KEY_LEFT)) playerPosition.x -= 0.1f;
+		else if (IsKeyDown(KEY_DOWN)) playerPosition.z += 0.1f;
+		else if (IsKeyDown(KEY_UP)) playerPosition.z -= 0.1f;
 
 
 		chekCollisionPlayer(playerPosition, playerSize, playerPosition_prev, BlockBoxSize, playerColor, collision);

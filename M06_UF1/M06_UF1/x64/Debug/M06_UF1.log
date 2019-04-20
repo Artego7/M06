@@ -1,0 +1,38 @@
+﻿  load_csv.cpp
+  main.cpp
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(85): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(86): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(92): warning C4838: la conversión de 'int' en 'float' requiere una conversión de restricción
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(89): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(91): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(137): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(138): warning C4244: '+=': conversión de 'float' a 'int'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(143): warning C4838: la conversión de 'int' en 'float' requiere una conversión de restricción
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(141): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(143): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(218): warning C4244: '=': conversión de 'float' a 'unsigned char'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(219): warning C4244: '=': conversión de 'float' a 'unsigned char'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\m06_uf1\m06_uf1\main.cpp(220): warning C4244: '=': conversión de 'float' a 'unsigned char'; posible pérdida de datos
+  Generando código...
+main.obj : error LNK2019: símbolo externo InitWindow sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo WindowShouldClose sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo ClearBackground sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo BeginDrawing sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo EndDrawing sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo BeginMode3D sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo EndMode3D sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo SetTargetFPS sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo GetFrameTime sin resolver al que se hace referencia en la función "int __cdecl generateBomb(void)" (?generateBomb@@YAHXZ)
+main.obj : error LNK2019: símbolo externo IsKeyPressed sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo IsKeyDown sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo LoadImage sin resolver al que se hace referencia en la función "int __cdecl setTextres(int)" (?setTextres@@YAHH@Z)
+main.obj : error LNK2019: símbolo externo LoadTextureFromImage sin resolver al que se hace referencia en la función "int __cdecl setTextres(int)" (?setTextres@@YAHH@Z)
+main.obj : error LNK2019: símbolo externo DrawFPS sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo DrawText sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo DrawCubeV sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo DrawCubeWires sin resolver al que se hace referencia en la función "int __cdecl printTextures(struct Vector3 &,struct Vector3 &)" (?printTextures@@YAHAEAUVector3@@0@Z)
+main.obj : error LNK2019: símbolo externo DrawCubeTexture sin resolver al que se hace referencia en la función "int __cdecl printTextures(struct Vector3 &,struct Vector3 &)" (?printTextures@@YAHAEAUVector3@@0@Z)
+main.obj : error LNK2019: símbolo externo DrawSphereEx sin resolver al que se hace referencia en la función "int __cdecl generateBomb(void)" (?generateBomb@@YAHXZ)
+main.obj : error LNK2019: símbolo externo DrawGrid sin resolver al que se hace referencia en la función "int __cdecl doRayMagic(void)" (?doRayMagic@@YAHXZ)
+main.obj : error LNK2019: símbolo externo CheckCollisionBoxes sin resolver al que se hace referencia en la función "int __cdecl chekCollisionPlayer(struct Vector3 &,struct Vector3 &,struct Vector3 &,struct Vector3 &,struct Color &,bool)" (?chekCollisionPlayer@@YAHAEAUVector3@@000AEAUColor@@_N@Z)
+C:\Users\User\Desktop\Abel\Trabajos\DAM_VIOD\Acceso_a_Datos\M06\M06_UF1\x64\Debug\M06_UF1.exe : fatal error LNK1120: 21 externos sin resolver

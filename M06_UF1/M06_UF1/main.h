@@ -37,6 +37,7 @@ int chekCollisionPlayer(Vector3& playerPosition, Vector3& playerSize, Vector3& p
 int setbombs(bomb& bombs);
 int colorBomb(bomb& bombs, Color color);
 void checkBombActive(Vector3 playerPosition);
+int setPosBombs(bomb& bombs);
 int generateBomb();
 
 //=============BLOCKS=============//

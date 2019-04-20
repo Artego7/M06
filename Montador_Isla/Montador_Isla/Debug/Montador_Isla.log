@@ -1,0 +1,6 @@
+﻿  main.cpp
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\montador_isla\montador_isla\main.cpp(38): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\montador_isla\montador_isla\main.cpp(39): warning C4244: 'inicializando': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\montador_isla\montador_isla\main.cpp(69): warning C4244: 'argumento': conversión de 'int' a 'float'; posible pérdida de datos
+c:\users\user\desktop\abel\trabajos\dam_viod\acceso_a_datos\m06\montador_isla\montador_isla\main.cpp(183): warning C4018: '<': no coinciden signed/unsigned
+  Montador_Isla.vcxproj -> C:\Users\User\Desktop\Abel\Trabajos\DAM_VIOD\Acceso_a_Datos\M06\Montador_Isla\Debug\Montador_Isla.exe
